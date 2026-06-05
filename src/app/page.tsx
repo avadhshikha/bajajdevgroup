@@ -27,7 +27,9 @@ import {
   localBusinessSchema,
   organizationSchema,
   serviceSchema,
+  websiteSchema,
 } from "@/lib/seo";
+import { GoogleReviewsSlider } from "@/components/home/GoogleReviewsSlider";
 import {
   serviceAreas,
   serviceLinks,
@@ -291,6 +293,7 @@ export default function Home() {
           organizationSchema,
           localBusinessSchema,
           serviceSchema,
+          websiteSchema,
           faqSchema,
           breadcrumbSchema,
         ]}
@@ -544,6 +547,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <GoogleReviewsSlider />
 
       <section className="border-y border-black/10 bg-[#fbfbf8] py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

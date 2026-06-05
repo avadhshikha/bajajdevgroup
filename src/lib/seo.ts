@@ -1,6 +1,13 @@
 import { serviceAreas, serviceLinks, siteConfig } from "@/lib/site";
 
 const absoluteHeroImage = `${siteConfig.baseUrl}${siteConfig.heroImage}`;
+const postalAddressSchema = {
+  "@type": "PostalAddress",
+  addressLocality: siteConfig.city,
+  addressRegion: siteConfig.state,
+  postalCode: "451001",
+  addressCountry: siteConfig.country,
+};
 
 export const homeFaqs = [
   {
@@ -38,36 +45,52 @@ export const homeFaqs = [
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${siteConfig.baseUrl}/#organization`,
   name: siteConfig.name,
   url: siteConfig.baseUrl,
-  logo: `${siteConfig.baseUrl}/favicon.ico`,
+  logo: absoluteHeroImage,
   image: absoluteHeroImage,
-  telephone: siteConfig.phoneDisplay,
+  telephone: siteConfig.phone,
   email: siteConfig.email,
-  address: siteConfig.address,
+  address: postalAddressSchema,
+  sameAs: ["https://share.google/Peau4fIsDciy15ix4"],
 };
 
 export const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "GeneralContractor"],
+  "@id": `${siteConfig.baseUrl}/#business`,
   name: siteConfig.name,
   description: siteConfig.description,
   url: siteConfig.baseUrl,
+  logo: absoluteHeroImage,
   image: absoluteHeroImage,
-  telephone: siteConfig.phoneDisplay,
+  telephone: siteConfig.phone,
   email: siteConfig.email,
   priceRange: "Contact for estimate",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: siteConfig.address,
-    addressLocality: siteConfig.city,
-    addressRegion: siteConfig.state,
-    addressCountry: siteConfig.country,
+  address: postalAddressSchema,
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 21.8234,
+    longitude: 75.6118,
   },
   areaServed: serviceAreas.map((area) => ({
     "@type": "Place",
     name: area,
   })),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Construction Services",
+    itemListElement: serviceLinks.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        url: `${siteConfig.baseUrl}${service.href}`,
+      },
+    })),
+  },
+  sameAs: ["https://share.google/Peau4fIsDciy15ix4"],
 };
 
 export const serviceSchema = {
@@ -77,14 +100,25 @@ export const serviceSchema = {
   provider: {
     "@type": "LocalBusiness",
     name: siteConfig.name,
-    telephone: siteConfig.phoneDisplay,
-    address: siteConfig.address,
+    telephone: siteConfig.phone,
+    address: postalAddressSchema,
   },
   areaServed: serviceAreas.map((area) => ({
     "@type": "Place",
     name: area,
   })),
   serviceType: serviceLinks.map((service) => service.label),
+};
+
+export const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteConfig.baseUrl}/#website`,
+  url: siteConfig.baseUrl,
+  name: siteConfig.shortName,
+  publisher: {
+    "@id": `${siteConfig.baseUrl}/#business`,
+  },
 };
 
 export const faqSchema = {

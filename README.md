@@ -16,6 +16,19 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Google Reviews
+
+The homepage Google reviews slider only renders real Google reviews when these
+environment variables are configured:
+
+```bash
+GOOGLE_PLACE_ID=your_google_place_id
+GOOGLE_PLACES_API_KEY=your_server_side_google_places_api_key
+```
+
+Keep `GOOGLE_PLACES_API_KEY` server-side only. Add these values in Vercel
+Project Settings before expecting `/api/reviews` to return live reviews.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
